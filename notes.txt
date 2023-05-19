@@ -1,0 +1,8 @@
+
+MVP: two units fighting, UI to select actions. 
+
+Milestone 1 - Base class for combatants
+Milestone 2 - Class for fights (take the two combatants and execute actions)
+
+
+Math.random to choose a set of actions for the enemy after I do my action
