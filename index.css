@@ -19,10 +19,12 @@ body {
 }
 .screen {
 	display: flex;
+	color: white;
 	flex-grow: 1;
 	height: 95vh;
-	/* background-color: blue; */
-	background-image: url(https://preview.redd.it/8gu6fstejpq31.jpg?auto=webp&s=6c6ba7d361e9174da6d17725e636535a62e7ea29);
+	background-color: black;
+	/* background-image: url(https://preview.redd.it/8gu6fstejpq31.jpg?auto=webp&s=6c6ba7d361e9174da6d17725e636535a62e7ea29); */
+	/* background-image: url(https://i.pinimg.com/564x/2e/a6/18/2ea61842ff0178b75857f1bc7cfd744a.jpg); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	position: relative;
@@ -48,11 +50,42 @@ body {
 
 .optionsPanel {
 	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	bottom: 0;
-	height: 20vh;
+	height: 25vh;
 	background-image: url(https://img.freepik.com/premium-photo/grunge-old-vintage-retro-paper-texture-background_47840-948.jpg);
 	color: white;
 	border: solid 5px black;
 	width: 100%;
 	box-sizing: border-box;
+	align-items: center;
+}
+
+.portraitPanel {
+	flex-grow: 1;
+	/* background-image: url(https://i.pinimg.com/564x/77/75/bc/7775bcb224137bb55e79ee09a86d0bd4.jpg); */
+	display: flex;
+}
+
+.playerPortrait {
+	object-fit: cover;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.buttons {
+	flex-grow: 1;
+}
+
+.skill {
+	background-color: #b83f1a;
+	border: solid black;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 4px;
+	cursor: pointer;
 }
