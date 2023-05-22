@@ -1,0 +1,58 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	display: flex;
+	/* background-color: rgb(148, 129, 105); */
+	background-image: url(https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+	height: 5vh;
+	justify-content: center;
+	align-items: center;
+	border-bottom: solid 5px black;
+	box-sizing: border-box;
+}
+
+.flexContainer {
+	display: flex;
+}
+.screen {
+	display: flex;
+	flex-grow: 1;
+	height: 95vh;
+	/* background-color: blue; */
+	background-image: url(https://preview.redd.it/8gu6fstejpq31.jpg?auto=webp&s=6c6ba7d361e9174da6d17725e636535a62e7ea29);
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+}
+
+.leftPanel {
+	margin-left: auto;
+	box-sizing: border-box;
+	border-right: solid 5px black;
+	background-color: azure;
+	opacity: 0.5;
+	width: 100px;
+}
+
+.rightPanel {
+	margin-right: auto;
+	box-sizing: border-box;
+	border-right: solid 5px black;
+	background-color: blue;
+	opacity: 0.5;
+	width: 100px;
+}
+
+.optionsPanel {
+	position: absolute;
+	bottom: 0;
+	height: 20vh;
+	background-image: url(https://img.freepik.com/premium-photo/grunge-old-vintage-retro-paper-texture-background_47840-948.jpg);
+	color: white;
+	border: solid 5px black;
+	width: 100%;
+	box-sizing: border-box;
+}
