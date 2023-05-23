@@ -14,7 +14,7 @@ body {
 	box-sizing: border-box;
 }
 
-.flexContainer {
+.flex-container {
 	display: flex;
 }
 .screen {
@@ -24,17 +24,47 @@ body {
 	flex-grow: 1;
 	height: 70vh;
 	background-color: black;
+	flex-direction: column;
+	align-items: center;
+
 	/* background-image: url(https://preview.redd.it/8gu6fstejpq31.jpg?auto=webp&s=6c6ba7d361e9174da6d17725e636535a62e7ea29); */
 	/* background-image: url(https://i.pinimg.com/564x/2e/a6/18/2ea61842ff0178b75857f1bc7cfd744a.jpg); */
-	background-size: cover;
-	background-repeat: no-repeat;
-	position: relative;
+	/* background-size: cover;
+	background-repeat: no-repeat; */
+	/* position: relative; */
 }
 
-.textContainer {
-	margin-top: 0;
-	margin-bottom: 10px;
-	margin-left: 15px;
+#player-turn {
+	background-color: green;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+#enemy-turn {
+	background-color: red;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.character-creator-container {
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.character-details {
+	border: solid 2px #b83f1a;
+}
+
+.table-header {
+	text-align: center;
 }
 
 .leftPanel {
@@ -55,7 +85,7 @@ body {
 	width: 100px;
 }
 
-.optionsPanel {
+.options-panel {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -68,12 +98,7 @@ body {
 	width: 100%;
 	box-sizing: border-box;
 	align-items: center;
-}
-
-.portraitPanel {
-	flex-grow: 1;
-	/* background-image: url(https://i.pinimg.com/564x/77/75/bc/7775bcb224137bb55e79ee09a86d0bd4.jpg); */
-	display: flex;
+	gap: 50px;
 }
 
 .playerPortrait {
@@ -83,7 +108,7 @@ body {
 }
 
 .buttons {
-	flex-grow: 1;
+	flex-basis: 300px;
 }
 
 .skill {

@@ -1,4 +1,5 @@
 // ----- Selectors and queries ------
+
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -8,8 +9,35 @@ const screen = document.querySelector(".screen");
 const textScreenContainer = document.querySelector(".textContainer");
 const flexContainer = document.querySelector(".flexContainer");
 
+const playerTurnTracker = document.querySelector("#player-turn");
+const enemyTurnTracker = document.querySelector("#enemy-turn");
+
+// ----- Operational Functions -----
+
+function updateTurnTracker() {
+	if (playerTurn === true) {
+		enemyTurnTracker.style.display = "none";
+		playerTurnTracker.style.display = "block";
+	} else if (playerTurn === false) {
+		enemyTurnTracker.style.display = "block";
+		playerTurnTracker.style.display = "none";
+	} else if (playerTurn === null) {
+		enemyTurnTracker.style.display = "none";
+		playerTurnTracker.style.display = "none";
+	}
+}
+
+function sendMessageToScreen(message) {
+	textScreenContainer.textContent =
+		message + "\n" + textScreenContainer.textContent;
+	if (textScreenContainer.scrollHeight > screen.offsetHeight) {
+		textScreenContainer.textContent = message;
+	}
+}
+
 // ----- Classes ------
-class Player {
+
+class Unit {
 	constructor(strength, agility, constitution) {
 		this.name = "TEST";
 
@@ -43,24 +71,26 @@ class Player {
 
 	attack(target) {
 		//TODO: find better calc for acc/parry interaction
+
 		let hitValue = Math.floor(
 			Math.random() *
 				(2 * this.accuracy - this.accuracy / 2 + this.accuracy / 2)
 		);
 
+		let attackMessage = null;
+
 		if (hitValue >= target.parry) {
 			let damage = this.damage - target.armor;
-			return `You deal ${damage} damage to ${target.name}.`;
+			attackMessage = `${this.name} deals ${damage} damage to ${target.name}.`;
 		} else if (hitValue < target.parry) {
-			return `The ${target.name} parries your attack!`;
+			attackMessage = `${target.name} parries the attack!`;
 		}
 
-		this.playerTurn === false;
-		this.roundCounter += 1;
+		sendMessageToScreen(attackMessage);
 	}
 }
 
-class LowlyBandit extends Player {
+class LowlyBandit extends Unit {
 	constructor(armor, damage) {
 		super(10, 10, 10);
 		this.name = "Lowly Bandit";
@@ -79,13 +109,17 @@ class Combat {
 	}
 
 	roundStart() {
+		this.playerTurn === null;
+		updateTurnTracker();
+
 		if (this.player.agility > this.enemy.agility) {
-			this.playerTurn = true;
-			console.log(`You move faster than the enemy!`);
-			this.player.attack;
+			sendMessageToScreen(`You move faster than the enemy!`);
+			playerTurn = true;
+			updateTurnTracker();
 		} else {
-			this.playerTurn = false;
-			console.log(`The enemy is faster than you!`);
+			sendMessageToScreen("The enemy is faster than you!");
+			playerTurn = false;
+			updateTurnTracker();
 		}
 	}
 }
@@ -124,8 +158,35 @@ class ironShield extends Equipment {
 	}
 }
 
+//----- Event Listeners -----
+
+//Buttons
+button1.addEventListener("click", () => {
+	if (playerTurn === true) {
+		player.attack(enemy);
+		playerTurn = false;
+		updateTurnTracker();
+
+		setTimeout(() => {
+			enemy.attack(player);
+			playerTurn = true;
+			updateTurnTracker();
+		}, 2000);
+	}
+});
+
 // Testing
-const player = new Player(10, 12, 14);
+
+/* createCharacter(); */
+
+/* function createCharacter() {
+	textScreenContainer.display = "none";
+} */
+
+playerTurn = null;
+updateTurnTracker();
+
+const player = new Unit(10, 12, 14);
 console.log("New player:", player);
 
 const bronzeSword = new BronzeSword();
@@ -138,22 +199,4 @@ console.log("New enemy:", enemy);
 const fight = new Combat(player, enemy);
 fight.roundStart();
 
-let playerAttack = player.attack(enemy);
-console.log("The player attacks:", playerAttack);
-
-let enemyAttack = enemy.attack(player);
-console.log("The enemy attacks:", enemyAttack);
-
-//----- Event Listeners -----
-
-//Buttons
-button1.addEventListener("click", () => {
-	let playerAttack = player.attack(enemy);
-	textScreenContainer.textContent =
-		playerAttack + "\n" + textScreenContainer.textContent;
-	if (textScreenContainer.scrollHeight > screen.offsetHeight) {
-		textScreenContainer.textContent = playerAttack;
-	}
-});
-
-console.log(textScreenContainer);
+console.log(enemy, player);
