@@ -10,61 +10,73 @@
 	</head>
 	<body>
 		<header class="header">Thanks for trying my game!</header>
-		<div class="flex-container">
-			<!-- <div class="leftPanel">Left Panel</div> -->
-			<div class="screen">
-				<!-- <div class="character-creator-container">
-					<div class="caracter-table">
-						<table>
-							<thead>
-								<tr>
-									<th class="table-header">Choose a character</th>
-								</tr>
-							</thead>
-							<tr>
-								<td>
-									Rogue: agile and cunning. Starts with leather armor, a sword
-									and a buckler.
-								</td>
-								<td class="rogue">TEST</td>
-							</tr>
-							<tr>
-								<td>
-									Hunter: fast and resourceful. Starts with common clothes, a
-									bow and a wolf companion.
-								</td>
-								<td class="hunter">TEST</td>
-							</tr>
-							<tr>
-								<td>
-									Knight: strong and duty-bound. Starts with mail armor, a sword
-									and a shield.
-								</td>
-								<td class="knight">TEST</td>
-							</tr>
-						</table>
-					</div>
-					<div class="character-details">test</div>
-				</div> -->
-				<div id="player-turn" class="turn-tracker">Player Turn</div>
-				<div id="enemy-turn" class="turn-tracker">Enemy Turn</div>
-				<pre class="textContainer"></pre>
+		<div id="flex-container">
+			<div class="enemy-panel">
+				<img
+					class="playerPortrait"
+					src="https://i.gyazo.com/4e035cba624067bfa61618f5c3474062.png"
+					alt="lowly bandit portrait"
+				/>
 			</div>
-			<!-- 	<div class="rightPanel">Right Panel</div> -->
-			<div class="options-panel">
+
+			<div id="screen-container">
+				<!-- <div id="leftPanel">Inventory</div> -->
+				<div class="screen">
+					<div id="character-creator-container">
+						<div class="caracter-table">
+							<table>
+								<thead>
+									<tr>
+										<th class="table-header">Choose a character</th>
+									</tr>
+								</thead>
+								<tr>
+									<td>
+										Rogue: agile and cunning. Starts with leather armor, a sword
+										and a buckler.
+									</td>
+									<td class="rogue">TEST</td>
+								</tr>
+								<tr>
+									<td>
+										Hunter: fast and resourceful. Starts with common clothes, a
+										bow and a wolf companion.
+									</td>
+									<td class="hunter">TEST</td>
+								</tr>
+								<tr>
+									<td>
+										Knight: strong and duty-bound. Starts with mail armor, a
+										sword and a shield.
+									</td>
+									<td class="knight">TEST</td>
+								</tr>
+							</table>
+						</div>
+						<div class="character-details">test</div>
+					</div>
+					<div id="player-turn" class="turn-tracker">Player Turn</div>
+					<div id="enemy-turn" class="turn-tracker">Enemy Turn</div>
+					<pre class="textContainer"></pre>
+				</div>
+				<!-- <div id="rightPanel">Right Panel</div> -->
+			</div>
+
+			<div class="player-panel">
+				<div id="inventory">Inventory</div>
 				<img
 					class="playerPortrait"
 					src="
 					https://i.pinimg.com/564x/77/75/bc/7775bcb224137bb55e79ee09a86d0bd4.jpg"
 					alt="player portrait"
 				/>
+				<div id="stats">Characteristics</div>
 				<div class="buttons">
 					<div id="button1" class="skill">Strike</div>
 					<div id="button2" class="skill">Skill 2</div>
 					<div id="button3" class="skill">Skill 3</div>
 					<div id="button4" class="skill">Skill 4</div>
 				</div>
-				<div class="enemyPortrait"></div>
 			</div>
 		</div>
 	</body>

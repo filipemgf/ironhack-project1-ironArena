@@ -1,18 +1,26 @@
 // ----- Selectors and queries ------
 
+const screen = document.querySelector(".screen");
+const characterCreatorContainer = document.querySelector(
+	"#character-creator-container"
+);
+const textScreenContainer = document.querySelector(".textContainer");
+const playerTurnTracker = document.querySelector("#player-turn");
+const enemyTurnTracker = document.querySelector("#enemy-turn");
+
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const button4 = document.querySelector("#button4");
 
-const screen = document.querySelector(".screen");
-const textScreenContainer = document.querySelector(".textContainer");
-const flexContainer = document.querySelector(".flexContainer");
+// ----- Functions -----
+characterCreatorContainer.style.display = "none";
+enemyTurnTracker.style.display = "none";
+playerTurnTracker.style.display = "none";
 
-const playerTurnTracker = document.querySelector("#player-turn");
-const enemyTurnTracker = document.querySelector("#enemy-turn");
-
-// ----- Operational Functions -----
+function characterCreation() {
+	characterCreatorContainer.style.display = "block";
+}
 
 function updateTurnTracker() {
 	if (playerTurn === true) {
@@ -108,10 +116,7 @@ class Combat {
 		this.playerTurn = null;
 	}
 
-	roundStart() {
-		this.playerTurn === null;
-		updateTurnTracker();
-
+	start() {
 		if (this.player.agility > this.enemy.agility) {
 			sendMessageToScreen(`You move faster than the enemy!`);
 			playerTurn = true;
@@ -175,28 +180,26 @@ button1.addEventListener("click", () => {
 	}
 });
 
+button4.addEventListener("click", () => {
+	characterCreation();
+});
+
 // Testing
-
-/* createCharacter(); */
-
-/* function createCharacter() {
-	textScreenContainer.display = "none";
-} */
 
 playerTurn = null;
 updateTurnTracker();
 
 const player = new Unit(10, 12, 14);
-console.log("New player:", player);
 
 const bronzeSword = new BronzeSword();
 
 bronzeSword.addEquipment(bronzeSword);
 
 const enemy = new LowlyBandit(1, 10);
-console.log("New enemy:", enemy);
 
 const fight = new Combat(player, enemy);
-fight.roundStart();
+fight.start();
 
 console.log(enemy, player);
+
+/* characterCreation(); */

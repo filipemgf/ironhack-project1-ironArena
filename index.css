@@ -14,14 +14,19 @@ body {
 	box-sizing: border-box;
 }
 
-.flex-container {
+#flex-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#screen-container {
 	display: flex;
 }
 .screen {
 	margin: 0;
 	display: flex;
 	color: white;
-	flex-grow: 1;
+	flex-grow: 2;
 	height: 70vh;
 	background-color: black;
 	flex-direction: column;
@@ -52,7 +57,7 @@ body {
 	font-size: 16px;
 }
 
-.character-creator-container {
+#character-creator-container {
 	margin: 15px;
 	display: flex;
 	flex-direction: column;
@@ -67,25 +72,27 @@ body {
 	text-align: center;
 }
 
-.leftPanel {
-	margin-left: auto;
-	box-sizing: border-box;
+#leftPanel {
+	display: flex;
+	/* 	box-sizing: border-box; */
 	border-right: solid 5px black;
 	background-color: azure;
 	opacity: 0.5;
-	width: 100px;
+	/* width: 100px; */
 }
 
-.rightPanel {
-	margin-right: auto;
-	box-sizing: border-box;
-	border-right: solid 5px black;
+#rightPanel {
+	display: flex;
+	flex-grow: 1;
+	/* margin-right: auto; */
+	/* box-sizing: border-box; */
+	border-left: solid 5px black;
 	background-color: blue;
 	opacity: 0.5;
-	width: 100px;
+	/* width: 100px; */
 }
 
-.options-panel {
+.player-panel {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -101,14 +108,28 @@ body {
 	gap: 50px;
 }
 
+#inventory {
+	background-color: #330c0c;
+	padding: 10px;
+	flex-basis: 400px;
+	border: solid 5px brown;
+}
+
 .playerPortrait {
 	object-fit: cover;
 	max-height: 100%;
 	max-width: 100%;
 }
 
+#stats {
+	background-color: #330c0c;
+	padding: 10px;
+	flex-basis: 200px;
+	border: solid 5px brown;
+}
+
 .buttons {
-	flex-basis: 300px;
+	flex-basis: 200px;
 }
 
 .skill {
@@ -120,4 +141,19 @@ body {
 	font-size: 16px;
 	margin: 4px 4px;
 	cursor: pointer;
+}
+
+.enemy-panel {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	bottom: 0;
+	height: 25vh;
+	background-image: url(https://img.freepik.com/premium-photo/grunge-old-vintage-retro-paper-texture-background_47840-948.jpg);
+	color: white;
+	border: solid 5px black;
+	width: 100%;
+	box-sizing: border-box;
+	align-items: center;
+	gap: 50px;
 }
