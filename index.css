@@ -157,3 +157,13 @@ body {
 	align-items: center;
 	gap: 50px;
 }
+
+@media (max-width: 910px) {
+	#inventory {
+		display: none;
+	}
+
+	#stats {
+		display: none;
+	}
+}
