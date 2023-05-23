@@ -18,16 +18,23 @@ body {
 	display: flex;
 }
 .screen {
+	margin: 0;
 	display: flex;
 	color: white;
 	flex-grow: 1;
-	height: 95vh;
+	height: 70vh;
 	background-color: black;
 	/* background-image: url(https://preview.redd.it/8gu6fstejpq31.jpg?auto=webp&s=6c6ba7d361e9174da6d17725e636535a62e7ea29); */
 	/* background-image: url(https://i.pinimg.com/564x/2e/a6/18/2ea61842ff0178b75857f1bc7cfd744a.jpg); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	position: relative;
+}
+
+.textContainer {
+	margin-top: 0;
+	margin-bottom: 10px;
+	margin-left: 15px;
 }
 
 .leftPanel {

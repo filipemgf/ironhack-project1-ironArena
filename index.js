@@ -1,3 +1,14 @@
+// ----- Selectors and queries ------
+const button1 = document.querySelector("#button1");
+const button2 = document.querySelector("#button2");
+const button3 = document.querySelector("#button3");
+const button4 = document.querySelector("#button4");
+
+const screen = document.querySelector(".screen");
+const textScreenContainer = document.querySelector(".textContainer");
+const flexContainer = document.querySelector(".flexContainer");
+
+// ----- Classes ------
 class Player {
 	constructor(strength, agility, constitution) {
 		this.name = "TEST";
@@ -39,7 +50,7 @@ class Player {
 
 		if (hitValue >= target.parry) {
 			let damage = this.damage - target.armor;
-			return `You deal ${damage} damage to ${target.name}.\n`;
+			return `You deal ${damage} damage to ${target.name}.`;
 		} else if (hitValue < target.parry) {
 			return `The ${target.name} parries your attack!`;
 		}
@@ -136,18 +147,13 @@ console.log("The enemy attacks:", enemyAttack);
 //----- Event Listeners -----
 
 //Buttons
-const button1 = document.querySelector("#button1");
 button1.addEventListener("click", () => {
 	let playerAttack = player.attack(enemy);
-	console.log("The player attacks:", playerAttack);
+	textScreenContainer.textContent =
+		playerAttack + "\n" + textScreenContainer.textContent;
+	if (textScreenContainer.scrollHeight > screen.offsetHeight) {
+		textScreenContainer.textContent = playerAttack;
+	}
 });
 
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
-const button4 = document.querySelector("#button4");
-
-// Text displays
-
-const textScreen = document.querySelector(".screen");
-textScreen.textContent += playerAttack;
-console.log(textScreen);
+console.log(textScreenContainer);
