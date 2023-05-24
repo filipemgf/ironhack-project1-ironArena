@@ -17,6 +17,23 @@ const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const button4 = document.querySelector("#button4");
 
+const enemyStatQueries = {
+	level: document.querySelector(".enemyStats .level"),
+	health: document.querySelector(".enemyStats .health"),
+	gold: document.querySelector(".enemyStats .gold"),
+	strength: document.querySelector(".enemyStats .strength"),
+	agility: document.querySelector(".enemyStats .agility"),
+	constitution: document.querySelector(".enemyStats .constitution"),
+};
+
+const playerStatQueries = {
+	level: document.querySelector(".playerStats .level"),
+	health: document.querySelector(".playerStats .health"),
+	gold: document.querySelector(".playerStats .gold"),
+	strength: document.querySelector(".playerStats .strength"),
+	agility: document.querySelector(".playerStats .agility"),
+	constitution: document.querySelector(".playerStats .constitution"),
+};
 // ----- Classes ------
 
 class Unit {
@@ -103,6 +120,7 @@ class Combat {
 
 	start() {
 		enemyPanel.style.display = "flex";
+		updateEnemyStats();
 
 		if (player.agility > enemy.agility) {
 			sendMessageToScreen(`You move faster than the enemy!`);
@@ -157,9 +175,8 @@ button1.addEventListener("click", () => {
 });
 
 button3.addEventListener("click", () => {
-	enemy = new Unit("Lowly Bandit", [10, 10, 10], [shields.ironShield]);
-	player = new Unit(
-		"Player Hero",
+	enemy = new Unit(
+		"Lowly Bandit",
 		[10, 10, 10],
 		[swords.bronzeSword, shields.ironShield]
 	);
@@ -214,6 +231,26 @@ function sendMessageToScreen(message) {
 	}
 }
 
+function updatePlayerStats() {
+	for (let property in playerStatQueries) {
+		playerStatQueries[
+			property
+		].textContent = `${property}: ${player[property]}`;
+	}
+}
+
+function updateEnemyStats() {
+	for (let property in enemyStatQueries) {
+		enemyStatQueries[property].textContent = `${property}: ${enemy[property]}`;
+	}
+}
+
+/* function updateStats(unit) {
+	for (let property in unitStatQueries) {
+		unitStatQueries[property].textContent = `${property}: ${[unit][property]}`;
+	}
+} */
+
 // Testing
 
 characterCreatorContainer.style.display = "none";
@@ -221,47 +258,17 @@ enemyTurnTracker.style.display = "none";
 playerTurnTracker.style.display = "none";
 enemyPanel.style.display = "none";
 
-/* playerTurn = null; */
-/* updateTurnTracker(); */
-
 let enemy = null;
 let player = null;
 
-/* const player = new Unit("Player Hero", [10, 12, 14]);
-const enemy = new Unit("Lowly Bandit", [10, 10, 10]); */
+player = new Unit(
+	"Player Hero",
+	[10, 10, 10],
+	[swords.bronzeSword, shields.ironShield]
+);
 
-//equipment as classes (decided against this)
-/* class Equipment {
-	constructor() {
-		this.armor = null;
-		this.damage = null;
-		this.parry = null;
-	}
+updatePlayerStats(player);
 
-	addEquipment(equipmentObject) {
-		player.equipment.push(equipmentObject);
-	}
-} */
-
-/* class BronzeSword extends Equipment {
-	constructor() {
-		super();
-		this.type = "sword";
-		this.price = 100;
-		this.damage = 10;
-		this.armor = 0;
-		this.parry = 0;
-	}
-} */
-
-/* class ironShield extends Equipment {
-	constructor() {
-		super();
-		this.armor = 3;
-	}
-
-	shieldRiposte() {
-		//doubles parry for one round, if an attack is parried, deal damage
-		this.parry *= 2;
-	}
-} */
+/* updatePlayerStats(); */
+/* updateStats(player, level); */
+/* statQueryContainer.player.level.textContent = `Level: ${player.level}`; */

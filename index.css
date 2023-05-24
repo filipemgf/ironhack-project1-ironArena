@@ -176,7 +176,6 @@ body {
 	border: solid 2px black;
 	align-items: stretch;
 	box-sizing: border-box;
-	justify-content: center;
 }
 
 .enemy-panel .stats {
