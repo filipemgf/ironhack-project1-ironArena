@@ -70,7 +70,7 @@ class Unit {
 		});
 	}
 
-	attack(target) {
+	/* attack(target) {
 		//TODO: find better calc for acc/parry interaction
 
 		let hitValue =
@@ -98,8 +98,8 @@ class Unit {
 				enemy.attack(player);
 			}, 2000);
 		}
-		sendMessageToScreen(attackMessage);
-	}
+		sendMessageToScreen(attackMessage); 
+	}*/
 
 	addEquipment(equipmentObject) {
 		this.equipmentArray.push(equipmentObject);
@@ -132,11 +132,83 @@ class Combat {
 			updateTurnTracker();
 
 			setTimeout(() => {
-				enemy.attack(player);
+				this.attack(enemy, player);
 			}, 2000);
 		}
 
 		console.log(player.turn, enemy.turn);
+	}
+
+	attack(attacker, defender) {
+		//TODO: find better calc for acc/parry interaction
+
+		let hitValue =
+			Math.floor(Math.random() * (attacker.accuracy + 1)) +
+			Math.floor(attacker.accuracy / 2);
+
+		let attackMessage = null;
+
+		if (hitValue >= defender.parry) {
+			let damage = attacker.damage - defender.armor;
+			attackMessage = `${attacker.name} deals ${damage} damage to ${defender.name}.`;
+
+			defender.health -= damage;
+		} else if (hitValue < defender.parry) {
+			attackMessage = `${defender.name} parries the attack!`;
+		}
+
+		sendMessageToScreen(attackMessage);
+		updateEnemyStats();
+		updatePlayerStats();
+
+		if (this.enemy.health <= 0) {
+			sendMessageToScreen(
+				"Your enemy has fallen and you live to fight another day!"
+			);
+			player.gold += enemy.gold;
+
+			setTimeout(() => {
+				textScreenContainer.textContent = " ";
+				this.end();
+				updatePlayerStats();
+				sendMessageToScreen(
+					`You have been rewarded ${enemy.gold} gold pieces for your performance.`
+				);
+			}, 3000);
+		} else if (this.player <= 0) {
+			this.end();
+			textScreenContainer.textContent = " ";
+			sendMessageToScreen(
+				"Your injuries are too much too much to bear. A noble death!"
+			);
+		} else {
+			if (enemy.turn) {
+				enemy.turn = false;
+				player.turn = true;
+				updateTurnTracker();
+			} else if (player.turn) {
+				enemy.turn = true;
+				player.turn = false;
+				updateTurnTracker();
+				setTimeout(() => {
+					this.attack(enemy, player);
+				}, 2000);
+			}
+		}
+	}
+
+	addEquipment(equipmentObject) {
+		this.equipmentArray.push(equipmentObject);
+	}
+
+	end() {
+		characterCreatorContainer.style.display = "none";
+		enemyTurnTracker.style.display = "none";
+		playerTurnTracker.style.display = "none";
+		enemyPanel.style.display = "none";
+
+		enemy.turn = false;
+		player.turn = false;
 	}
 }
 
@@ -170,7 +242,7 @@ const shields = {
 button1.addEventListener("click", () => {
 	console.log("button1 clicked");
 	if (player.turn === true) {
-		player.attack(enemy);
+		fight.attack(player, enemy);
 	}
 });
 
@@ -182,7 +254,7 @@ button3.addEventListener("click", () => {
 	);
 	console.log(player, enemy);
 
-	let fight = new Combat(player, enemy);
+	fight = new Combat(player, enemy);
 	fight.start();
 });
 button4.addEventListener("click", () => {
@@ -263,7 +335,7 @@ let player = null;
 
 player = new Unit(
 	"Player Hero",
-	[10, 10, 10],
+	[100000, 100000, 10],
 	[swords.bronzeSword, shields.ironShield]
 );
 
