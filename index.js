@@ -8,6 +8,8 @@ const textScreenContainer = document.querySelector(".textContainer");
 const playerTurnTracker = document.querySelector("#player-turn");
 const enemyTurnTracker = document.querySelector("#enemy-turn");
 
+const playerPanel = document.querySelector(".player-panel");
+
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -35,10 +37,25 @@ function updateTurnTracker() {
 	}
 }
 
+function checkColision(element1, element2) {
+	const rect1 = element1.getBoundingClientRect();
+	const rect2 = element2.getBoundingClientRect();
+
+	return (
+		rect1.left < rect2.right &&
+		rect1.right > rect2.left &&
+		rect1.top < rect2.bottom &&
+		rect1.bottom > rect2.top
+	);
+}
+
 function sendMessageToScreen(message) {
 	textScreenContainer.textContent =
 		message + "\n" + textScreenContainer.textContent;
-	if (textScreenContainer.scrollHeight > screen.offsetHeight) {
+
+	let colisionCheck = checkColision(playerPanel, textScreenContainer);
+
+	if (colisionCheck === true) {
 		textScreenContainer.textContent = message;
 	}
 }
@@ -176,10 +193,11 @@ button1.addEventListener("click", () => {
 			enemy.attack(player);
 			playerTurn = true;
 			updateTurnTracker();
-		}, 2000);
+		}, 000);
 	}
 });
 
+button3.addEventListener("click", () => {});
 button4.addEventListener("click", () => {
 	characterCreation();
 });
