@@ -17,6 +17,16 @@ const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const button4 = document.querySelector("#button4");
 
+const characterChoiceButtons = document.querySelectorAll(
+	".character-choice-button"
+);
+
+const characterChoiceQueries = {
+	rogue: document.querySelector(".character-choice-button.rogue"),
+	hunter: document.querySelector(".character-choice-button.hunter"),
+	knight: document.querySelector(".character-choice-button.knight"),
+};
+
 const enemyStatQueries = {
 	level: document.querySelector(".enemyStats .level"),
 	health: document.querySelector(".enemyStats .health"),
@@ -59,6 +69,7 @@ class Unit {
 
 		//equipment storage array
 		this.equipmentArray = equipmentArray || [];
+		this.applyEquipmentBonus();
 	}
 
 	applyEquipmentBonus() {
@@ -69,37 +80,6 @@ class Unit {
 			this.damage += Math.round(equipmentObject.damage + this.strength * 0.25);
 		});
 	}
-
-	/* attack(target) {
-		//TODO: find better calc for acc/parry interaction
-
-		let hitValue =
-			Math.floor(Math.random() * (this.accuracy + 1)) +
-			Math.floor(this.accuracy / 2);
-
-		let attackMessage = null;
-
-		if (hitValue >= target.parry) {
-			let damage = this.damage - target.armor;
-			attackMessage = `${this.name} deals ${damage} damage to ${target.name}.`;
-		} else if (hitValue < target.parry) {
-			attackMessage = `${target.name} parries the attack!`;
-		}
-
-		if (enemy.turn) {
-			enemy.turn = false;
-			player.turn = true;
-			updateTurnTracker();
-		} else if (player.turn) {
-			enemy.turn = true;
-			player.turn = false;
-			updateTurnTracker();
-			setTimeout(() => {
-				enemy.attack(player);
-			}, 2000);
-		}
-		sendMessageToScreen(attackMessage); 
-	}*/
 
 	addEquipment(equipmentObject) {
 		this.equipmentArray.push(equipmentObject);
@@ -221,6 +201,17 @@ const swords = {
 		price: 100,
 		damage: 10,
 		armor: 0,
+		parry: 1,
+	},
+};
+
+const bows = {
+	shortBow: {
+		name: "Short Bow",
+		type: "bow",
+		price: 100,
+		damage: 15,
+		armor: 0,
 		parry: 0,
 	},
 };
@@ -232,7 +223,42 @@ const shields = {
 		price: 100,
 		damage: 0,
 		armor: 2,
+		parry: 2,
+	},
+	ironBuckler: {
+		name: "Iron Buckler",
+		type: "shield",
+		price: 50,
+		damage: 0,
+		armor: 1,
 		parry: 1,
+	},
+};
+
+const armor = {
+	leatherArmor: {
+		name: "Leather Armor",
+		type: "armor",
+		price: 100,
+		damage: 0,
+		armor: 2,
+		parry: 0,
+	},
+	commonClothes: {
+		name: "Common Clothes",
+		type: "armor",
+		price: 10,
+		damage: 0,
+		armor: 1,
+		parry: 0,
+	},
+	mailArmor: {
+		name: "Mail Armor",
+		type: "armor",
+		price: 200,
+		damage: 0,
+		armor: 4,
+		parry: 0,
 	},
 };
 
@@ -261,11 +287,45 @@ button4.addEventListener("click", () => {
 	characterCreation();
 });
 
-// ----- Functions -----
+characterChoiceQueries["rogue"].addEventListener("click", () => {
+	player = new Unit(
+		"Player Rogue",
+		[10, 15, 12],
+		[armor.leatherArmor, swords.bronzeSword, shields.ironBuckler]
+	);
+	updatePlayerStats();
+	console.log(player);
+});
 
-function characterCreation() {
-	characterCreatorContainer.style.display = "block";
-}
+characterChoiceQueries["hunter"].addEventListener("click", () => {
+	player = new Unit(
+		"Player Hunter",
+		[12, 13, 13],
+		[armor.commonClothes, bows.shortBow]
+	);
+	updatePlayerStats();
+	console.log(player);
+});
+
+characterChoiceQueries["knight"].addEventListener("click", () => {
+	player = new Unit(
+		"Player Knight",
+		[13, 10, 15],
+		[armor.mailArmor, swords.bronzeSword, shields.ironShield]
+	);
+	updatePlayerStats();
+	console.log(player);
+});
+
+/* characterChoiceButtons.forEach((button) => {
+	button.addEventListener("click", (event) => {
+		button.classList.remove("active");
+
+		event.target.classList.add("active");
+	});
+}); */
+
+// ----- Functions -----
 
 function updateTurnTracker() {
 	if (player.turn) {
@@ -321,9 +381,15 @@ function updateEnemyStats() {
 	for (let property in unitStatQueries) {
 		unitStatQueries[property].textContent = `${property}: ${[unit][property]}`;
 	}
-} */
+} couldn't manage to make the two updatestats functions generic*/
 
 // Testing
+
+function characterCreation() {
+	characterCreatorContainer.style.display = "block";
+}
+
+function characterChoiceDetails() {}
 
 characterCreatorContainer.style.display = "none";
 enemyTurnTracker.style.display = "none";
@@ -333,13 +399,15 @@ enemyPanel.style.display = "none";
 let enemy = null;
 let player = null;
 
-player = new Unit(
-	"Player Hero",
-	[100000, 100000, 10],
-	[swords.bronzeSword, shields.ironShield]
-);
+characterCreation();
 
-updatePlayerStats(player);
+/* player = new Unit(
+	"Player Hero",
+	[12, 14, 10],
+	[swords.bronzeSword, shields.ironShield]
+); */
+
+/* updatePlayerStats(player); */
 
 /* updatePlayerStats(); */
 /* updateStats(player, level); */

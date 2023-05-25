@@ -184,7 +184,7 @@ body {
 	margin-right: 20px;
 }
 
-.buttons {
+.panel-buttons-container {
 	display: flex;
 	flex-direction: column;
 	flex-basis: 200px;
@@ -193,7 +193,7 @@ body {
 	justify-content: center;
 }
 
-.skill {
+.panel-buttons {
 	display: flex;
 	background-color: #b83f1a;
 	border: solid black;
@@ -201,10 +201,63 @@ body {
 	padding: 5px 5px;
 	text-align: center;
 	font-size: 16px;
-	margin: 2px 2px;
+	margin: 4px 2px;
 	cursor: pointer;
 	justify-content: center;
 	flex-grow: 1;
+	transition: all 0.3s ease-in-out;
+}
+
+.panel-buttons:hover {
+	background-color: #ca3e1e;
+	color: black;
+	transform: scale(1.1);
+}
+
+#character-table-body * {
+	display: flex;
+	justify-content: space-between;
+}
+
+.character-choice-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #b83f1a;
+	border: solid white;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	font-size: 16px;
+	margin: 2px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	height: 8px;
+}
+
+.character-choice-button:hover {
+	background-color: green;
+	color: black;
+	transform: scale(1.1);
+}
+
+.character-choice-button.active {
+	background-color: green;
+	color: black;
+	transform: scale(1.1);
+}
+
+#character-table td {
+	padding-bottom: 10px;
+}
+
+#character-table th {
+	padding-bottom: 20px;
+}
+
+#character-table tr {
+	gap: 50px;
+	margin: 10px;
 }
 
 @media (max-width: 910px) {
