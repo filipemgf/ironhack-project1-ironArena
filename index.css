@@ -12,6 +12,7 @@ body {
 	background-image: url(https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
 	height: 4vh;
 	justify-content: center;
+	color: white;
 	align-items: center;
 	border-bottom: solid 5px black;
 	box-sizing: border-box;

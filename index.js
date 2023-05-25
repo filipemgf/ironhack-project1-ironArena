@@ -76,11 +76,11 @@ class Unit {
 		this.gold = 200;
 
 		//character derived stats
-		this.health = 100 + Math.round(2 * this.constitution);
+		this.health = 100 + Math.round(3 * this.constitution);
 		this.energy = 10;
 		this.armor = 0 + Math.round(0.25 * this.constitution);
 		this.parry = 10 + Math.round(0.25 * this.agility);
-		this.accuracy = 10 + Math.round(0.25 * this.agility);
+		this.accuracy = 10 + Math.round(1 * this.agility);
 		this.damage = 0; //will depend on the weapon equipped
 
 		//equipment storage array
@@ -142,14 +142,15 @@ class Combat {
 		//TODO: find better calc for acc/parry interaction
 
 		let hitValue =
-			Math.floor(Math.random() * 10) +
-			(attacker.accuracy + 1) +
-			Math.floor(attacker.accuracy / 2);
+			attacker.accuracy * 0.5 + Math.floor(Math.random() * attacker.accuracy);
 
 		let attackMessage = null;
 
+		console.log(hitValue);
 		if (hitValue >= defender.parry) {
-			let damage = attacker.damage - defender.armor;
+			let damage =
+				Math.floor(attacker.damage * (0.5 + Math.random() * 0.5)) -
+				defender.armor;
 			attackMessage = `${attacker.name} deals ${damage} damage to ${defender.name}.`;
 
 			defender.health -= damage;
@@ -466,4 +467,5 @@ function startIntro() {
 let enemy = null;
 let player = null;
 
-characterCreation();
+startIntro();
+/* characterCreation(); */
