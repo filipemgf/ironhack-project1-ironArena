@@ -1,30 +1,35 @@
 // ----- Selectors and queries ------
 
-const screen = document.querySelector(".screen");
-const characterCreatorContainer = document.querySelector(
-	"#character-creator-container"
-);
-const textScreenContainer = document.querySelector(".textContainer");
-const playerTurnTracker = document.querySelector("#player-turn");
-const enemyTurnTracker = document.querySelector("#enemy-turn");
+const combatQueries = {
+	screenContainer: document.querySelector(".textContainer"),
+	turnTracker: {
+		player: document.querySelector("#player-turn"),
+		enemy: document.querySelector("#enemy-turn"),
+	},
+};
 
-const playerPanel = document.querySelector(".player-panel");
+const panelQueries = {
+	player: {
+		panel: document.querySelector(".player-panel"),
+		button: {
+			container: document.querySelector(".panel-buttons-container"),
+			one: document.querySelector("#button1"),
+			two: document.querySelector("#button2"),
+			three: document.querySelector("#button3"),
+			four: document.querySelector("#button4"),
+		},
+	},
+	enemy: {
+		panel: document.querySelector(".enemy-panel"),
+	},
+};
 
-const enemyPanel = document.querySelector(".enemy-panel");
-
-const button1 = document.querySelector("#button1");
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
-const button4 = document.querySelector("#button4");
-
-const characterChoiceButtons = document.querySelectorAll(
-	".character-choice-button"
-);
-
-const characterChoiceQueries = {
+const characterCreatorQueries = {
+	container: document.querySelector("#character-creator-container"),
 	rogue: document.querySelector(".character-choice-button.rogue"),
 	hunter: document.querySelector(".character-choice-button.hunter"),
 	knight: document.querySelector(".character-choice-button.knight"),
+	confirm: document.querySelector(".confirm-character-button"),
 };
 
 const enemyStatQueries = {
@@ -44,6 +49,17 @@ const playerStatQueries = {
 	agility: document.querySelector(".playerStats .agility"),
 	constitution: document.querySelector(".playerStats .constitution"),
 };
+
+const introQueries = {
+	container: document.querySelector("#character-creation-intro"),
+	paragraph: {
+		one: document.querySelector(".intro-paragraph.one"),
+		two: document.querySelector(".intro-paragraph.two"),
+		three: document.querySelector(".intro-paragraph.three"),
+	},
+	button: document.querySelector(".character-choice-button"),
+};
+
 // ----- Classes ------
 
 class Unit {
@@ -73,7 +89,6 @@ class Unit {
 	}
 
 	applyEquipmentBonus() {
-		/* add gear like this */
 		this.equipmentArray.forEach((equipmentObject) => {
 			this.armor += equipmentObject.armor || 0;
 			this.parry += equipmentObject.parry || 0;
@@ -99,7 +114,11 @@ class Combat {
 	}
 
 	start() {
-		enemyPanel.style.display = "flex";
+		panelQueries.enemy.panel.style.display = "flex";
+		introQueries.container.style.display = "none";
+		characterCreatorQueries.container.style.display = "none";
+		console.log(fight);
+
 		updateEnemyStats();
 
 		if (player.agility > enemy.agility) {
@@ -123,7 +142,8 @@ class Combat {
 		//TODO: find better calc for acc/parry interaction
 
 		let hitValue =
-			Math.floor(Math.random() * (attacker.accuracy + 1)) +
+			Math.floor(Math.random() * 10) +
+			(attacker.accuracy + 1) +
 			Math.floor(attacker.accuracy / 2);
 
 		let attackMessage = null;
@@ -148,7 +168,7 @@ class Combat {
 			player.gold += enemy.gold;
 
 			setTimeout(() => {
-				textScreenContainer.textContent = " ";
+				combatQueries.screenContainer.textContent = " ";
 				this.end();
 				updatePlayerStats();
 				sendMessageToScreen(
@@ -157,7 +177,7 @@ class Combat {
 			}, 3000);
 		} else if (this.player <= 0) {
 			this.end();
-			textScreenContainer.textContent = " ";
+			combatQueries.screenContainer.textContent = " ";
 			sendMessageToScreen(
 				"Your injuries are too much too much to bear. A noble death!"
 			);
@@ -182,10 +202,10 @@ class Combat {
 	}
 
 	end() {
-		characterCreatorContainer.style.display = "none";
-		enemyTurnTracker.style.display = "none";
-		playerTurnTracker.style.display = "none";
-		enemyPanel.style.display = "none";
+		characterCreatorQueries.container.style.display = "none";
+		combatQueries.turnTracker.enemy.style.display = "none";
+		combatQueries.turnTracker.player.style.display = "none";
+		panelQueries.enemy.panel.style.display = "none";
 
 		enemy.turn = false;
 		player.turn = false;
@@ -265,55 +285,56 @@ const armor = {
 //----- Event Listeners -----
 
 //Buttons
-button1.addEventListener("click", () => {
+panelQueries.player.button.one.addEventListener("click", () => {
 	console.log("button1 clicked");
 	if (player.turn === true) {
 		fight.attack(player, enemy);
 	}
 });
 
-button3.addEventListener("click", () => {
-	enemy = new Unit(
-		"Lowly Bandit",
-		[10, 10, 10],
-		[swords.bronzeSword, shields.ironShield]
-	);
-	console.log(player, enemy);
+panelQueries.player.button.three.addEventListener("click", () => {});
+panelQueries.player.button.four.addEventListener("click", () => {});
 
-	fight = new Combat(player, enemy);
-	fight.start();
-});
-button4.addEventListener("click", () => {
+introQueries.button.addEventListener("click", () => {
 	characterCreation();
 });
 
-characterChoiceQueries["rogue"].addEventListener("click", () => {
+characterCreatorQueries["rogue"].addEventListener("click", () => {
+	panelQueries.player.panel.style.display = "flex";
+	panelQueries.player.button.container.style.display = "none";
 	player = new Unit(
 		"Player Rogue",
 		[10, 15, 12],
 		[armor.leatherArmor, swords.bronzeSword, shields.ironBuckler]
 	);
 	updatePlayerStats();
+	characterCreatorQueries.confirm.style.display = "flex";
 	console.log(player);
 });
 
-characterChoiceQueries["hunter"].addEventListener("click", () => {
+characterCreatorQueries["hunter"].addEventListener("click", () => {
+	panelQueries.player.panel.style.display = "flex";
+	panelQueries.player.button.container.style.display = "none";
 	player = new Unit(
 		"Player Hunter",
 		[12, 13, 13],
 		[armor.commonClothes, bows.shortBow]
 	);
 	updatePlayerStats();
+	characterCreatorQueries.confirm.style.display = "flex";
 	console.log(player);
 });
 
-characterChoiceQueries["knight"].addEventListener("click", () => {
+characterCreatorQueries["knight"].addEventListener("click", () => {
+	panelQueries.player.panel.style.display = "flex";
+	panelQueries.player.button.container.style.display = "none";
 	player = new Unit(
 		"Player Knight",
 		[13, 10, 15],
 		[armor.mailArmor, swords.bronzeSword, shields.ironShield]
 	);
 	updatePlayerStats();
+	characterCreatorQueries.confirm.style.display = "flex";
 	console.log(player);
 });
 
@@ -325,18 +346,36 @@ characterChoiceQueries["knight"].addEventListener("click", () => {
 	});
 }); */
 
+if (panelQueries.player.panel.style.display === "flex") {
+	characterCreatorQueries.confirm.addEventListener("click", () => {});
+}
+
+characterCreatorQueries.confirm.addEventListener("click", () => {
+	enemy = new Unit(
+		"Lowly Bandit",
+		[10, 10, 10],
+		[swords.bronzeSword, shields.ironShield]
+	);
+	characterCreatorQueries.container.style.display = "none";
+	panelQueries.player.button.container.style.display = "flex";
+
+	console.log(player, enemy);
+	fight = new Combat(player, enemy);
+	fight.start();
+});
+
 // ----- Functions -----
 
 function updateTurnTracker() {
 	if (player.turn) {
-		enemyTurnTracker.style.display = "none";
-		playerTurnTracker.style.display = "block";
+		combatQueries.turnTracker.enemy.style.display = "none";
+		combatQueries.turnTracker.player.style.display = "block";
 	} else if (enemy.turn) {
-		enemyTurnTracker.style.display = "block";
-		playerTurnTracker.style.display = "none";
+		combatQueries.turnTracker.enemy.style.display = "block";
+		combatQueries.turnTracker.player.style.display = "none";
 	} else {
-		enemyTurnTracker.style.display = "none";
-		playerTurnTracker.style.display = "none";
+		combatQueries.turnTracker.enemy.style.display = "none";
+		combatQueries.turnTracker.player.style.display = "none";
 	}
 }
 
@@ -353,13 +392,16 @@ function checkColision(element1, element2) {
 }
 
 function sendMessageToScreen(message) {
-	textScreenContainer.textContent =
-		message + "\n" + textScreenContainer.textContent;
+	combatQueries.screenContainer.textContent =
+		message + "\n" + combatQueries.screenContainer.textContent;
 
-	let colisionCheck = checkColision(playerPanel, textScreenContainer);
+	let colisionCheck = checkColision(
+		panelQueries.player.panel,
+		combatQueries.screenContainer
+	);
 
 	if (colisionCheck === true) {
-		textScreenContainer.textContent = message;
+		combatQueries.screenContainer.textContent = message;
 	}
 }
 
@@ -377,6 +419,42 @@ function updateEnemyStats() {
 	}
 }
 
+function characterCreation() {
+	characterCreatorQueries.container.style.display = "flex";
+	combatQueries.turnTracker.enemy.style.display = "none";
+	combatQueries.turnTracker.player.style.display = "none";
+	panelQueries.enemy.panel.style.display = "none";
+	panelQueries.player.panel.style.display = "none";
+	introQueries.paragraph.one.style.display = "none";
+	introQueries.paragraph.two.style.display = "none";
+	introQueries.paragraph.three.style.display = "none";
+	introQueries.button.style.display = "none";
+	characterCreatorQueries.confirm.style.display = "none";
+}
+
+function startIntro() {
+	characterCreatorQueries.container.style.display = "none";
+	combatQueries.turnTracker.enemy.style.display = "none";
+	combatQueries.turnTracker.player.style.display = "none";
+	panelQueries.enemy.panel.style.display = "none";
+	panelQueries.player.panel.style.display = "none";
+	introQueries.paragraph.one.style.display = "none";
+	introQueries.paragraph.two.style.display = "none";
+	introQueries.paragraph.three.style.display = "none";
+	introQueries.button.style.display = "none";
+
+	introQueries.container.style.display = "flex";
+	introQueries.paragraph.one.style.display = "flex";
+	setTimeout(() => {
+		introQueries.paragraph.two.style.display = "flex";
+		setTimeout(() => {
+			introQueries.paragraph.three.style.display = "flex";
+			setTimeout(() => {
+				introQueries.button.style.display = "flex";
+			}, 5000);
+		}, 5000);
+	}, 5000);
+}
 /* function updateStats(unit) {
 	for (let property in unitStatQueries) {
 		unitStatQueries[property].textContent = `${property}: ${[unit][property]}`;
@@ -385,30 +463,7 @@ function updateEnemyStats() {
 
 // Testing
 
-function characterCreation() {
-	characterCreatorContainer.style.display = "block";
-}
-
-function characterChoiceDetails() {}
-
-characterCreatorContainer.style.display = "none";
-enemyTurnTracker.style.display = "none";
-playerTurnTracker.style.display = "none";
-enemyPanel.style.display = "none";
-
 let enemy = null;
 let player = null;
 
 characterCreation();
-
-/* player = new Unit(
-	"Player Hero",
-	[12, 14, 10],
-	[swords.bronzeSword, shields.ironShield]
-); */
-
-/* updatePlayerStats(player); */
-
-/* updatePlayerStats(); */
-/* updateStats(player, level); */
-/* statQueryContainer.player.level.textContent = `Level: ${player.level}`; */

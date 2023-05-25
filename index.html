@@ -4,9 +4,16 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="./index.js" defer></script>
 		<title>Iron Arena</title>
 		<link rel="stylesheet" href="./index.css" />
-		<script src="./index.js" defer></script>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<header class="header">Thanks for trying my game!</header>
@@ -46,37 +53,39 @@
 					</table>
 				</div>
 			</div>
-			<div id="bg-container">
+			<!-- <div id="bg-container">
 				<img
 					id="https://i.pinimg.com/736x/0f/48/8a/0f488a39a556e9a85d4d51b77b1b22d3.jpg"
 				/>
-			</div>
-
+			</div> -->
 			<div id="screen-container">
 				<!-- <div id="leftPanel">Inventory</div> -->
 				<div class="screen">
-					<div class="character-creation-intro">
-						<div>
+					<div id="character-creation-intro">
+						<div class="intro-paragraph one">
 							Welcome to Ironhill, a magnificent city nestled high amidst the
 							awe-inspiring mountains. Prepare yourself for an exhilarating
 							journey into the heart of gladiatorial combat. As you step in, the
 							echoes of clashing weapons and roaring crowds fill the air,
 							setting the stage for an epic battle.
 						</div>
-						<div>
+						<div class="intro-paragraph two">
 							In this fantastical realm, Ironhill stands as a beacon of martial
 							prowess, where warriors from all walks of life gather to prove
 							their mettle in the legendary arenas. The city's grand colosseums
 							bear witness to countless fierce duels, where strength, skill, and
 							strategy converge in a breathtaking display of valor.
 						</div>
-						<div>
+						<div class="intro-paragraph three">
 							Now, champion, the time has come to choose your destiny. Step
 							forward and claim your rightful place among the fearless
 							combatants of Ironhill. The roar of the crowd awaits, and the path
 							to glory beckons. May your blades be swift, your magic be potent,
 							and your spirit indomitable as you embark on this extraordinary
 							adventure in the realm of gladiatorial combat.
+						</div>
+						<div class="start-game-button character-choice-button">
+							Choose a fighter
 						</div>
 					</div>
 					<div id="character-creator-container">
@@ -112,7 +121,10 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="character-details">test</div>
+						<div class="confirm-character-button character-choice-button">
+							Choose Character and fight!
+						</div>
+						<!-- <div class="character-details">test</div> -->
 					</div>
 					<div id="player-turn" class="turn-tracker">Player Turn</div>
 					<div id="enemy-turn" class="turn-tracker">Enemy Turn</div>
