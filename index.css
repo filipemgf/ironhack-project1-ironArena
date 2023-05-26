@@ -204,6 +204,31 @@ body {
 	margin-right: 20px;
 }
 
+.items-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.items-container div {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	justify-content: center;
+}
+
+.player-inventory header {
+	font-size: larger;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.enemy-inventory header {
+	font-size: larger;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
 .panel-buttons-container {
 	display: flex;
 	flex-direction: column;

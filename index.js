@@ -125,6 +125,8 @@ class Combat {
 
 		updateEnemyStats();
 		updateEnemyInventory();
+		updatePlayerInventory();
+		updateEnemyInventory();
 
 		if (player.agility > enemy.agility) {
 			sendMessageToScreen(`You move faster than the enemy!`);
@@ -308,7 +310,7 @@ introQueries.button.addEventListener("click", () => {
 
 characterCreatorQueries["rogue"].addEventListener("click", () => {
 	panelQueries.player.panel.style.display = "flex";
-	/* panelQueries.player.button.container.style.display = "none"; */
+	panelQueries.player.button.container.style.display = "none";
 	player = new Unit(
 		"Player Rogue",
 		[10, 15, 12],
@@ -319,8 +321,7 @@ characterCreatorQueries["rogue"].addEventListener("click", () => {
 
 	characterCreatorQueries.confirm.style.display = "flex";
 	panelQueries.player.portrait.style.display = "flex";
-	console.log(player);
-	console.log(player.equipmentArray);
+	console.log("player", player);
 });
 
 characterCreatorQueries["hunter"].addEventListener("click", () => {
@@ -332,8 +333,11 @@ characterCreatorQueries["hunter"].addEventListener("click", () => {
 		[armor.commonClothes, bows.shortBow]
 	);
 	updatePlayerStats();
+	updatePlayerInventory();
+
 	characterCreatorQueries.confirm.style.display = "flex";
-	console.log(player);
+	panelQueries.player.portrait.style.display = "flex";
+	console.log("player", player);
 });
 
 characterCreatorQueries["knight"].addEventListener("click", () => {
@@ -345,21 +349,11 @@ characterCreatorQueries["knight"].addEventListener("click", () => {
 		[armor.mailArmor, swords.bronzeSword, shields.ironShield]
 	);
 	updatePlayerStats();
+	updatePlayerInventory();
 	characterCreatorQueries.confirm.style.display = "flex";
-	console.log(player);
+	panelQueries.player.portrait.style.display = "flex";
+	console.log("player", player);
 });
-
-/* characterChoiceButtons.forEach((button) => {
-	button.addEventListener("click", (event) => {
-		button.classList.remove("active");
-
-		event.target.classList.add("active");
-	});
-}); */
-
-if (panelQueries.player.panel.style.display === "flex") {
-	characterCreatorQueries.confirm.addEventListener("click", () => {});
-}
 
 characterCreatorQueries.confirm.addEventListener("click", () => {
 	enemy = new Unit(
@@ -370,8 +364,11 @@ characterCreatorQueries.confirm.addEventListener("click", () => {
 	characterCreatorQueries.container.style.display = "none";
 	panelQueries.player.button.container.style.display = "flex";
 
-	console.log(player, enemy);
+	console.log("player", player);
+	console.log("enemy", enemy);
 	fight = new Combat(player, enemy);
+	/* updatePlayerInventory();
+	updateEnemyInventory(); */
 	fight.start();
 });
 
@@ -430,30 +427,17 @@ function updateEnemyStats() {
 	}
 }
 
-console.log(panelQueries.player.inventory);
-
-/* function updateInventory(unit) {
-	const equipmentArray = unit.equipmentArray;
-	equipmentArray.forEach((equipment) => {
-		panelQueries[unit].inventory.innerHTML += `\n ${equipment.name}`;
-	});
-} */
-
 function updatePlayerInventory() {
+	panelQueries.player.inventory.innerHTML = "";
 	player.equipmentArray.forEach((equipment) => {
-		const equipmentName = document.createTextNode(equipment.name);
-		lineBreak = document.createElement(`br`);
-		panelQueries.player.inventory.appendChild(equipmentName);
-		panelQueries.player.inventory.appendChild(lineBreak);
+		panelQueries.player.inventory.innerHTML += `<div>${equipment.name}</div>`;
 	});
 }
 
 function updateEnemyInventory() {
+	panelQueries.enemy.inventory.innerHTML = "";
 	enemy.equipmentArray.forEach((equipment) => {
-		const equipmentName = document.createTextNode(equipment.name);
-		lineBreak = document.createElement(`br`);
-		panelQueries.enemy.inventory.appendChild(equipmentName);
-		panelQueries.enemy.inventory.appendChild(lineBreak);
+		panelQueries.enemy.inventory.innerHTML += `<div>${equipment.name}</div>`;
 	});
 }
 
@@ -505,7 +489,6 @@ function startIntro() {
 /* panelQueries.player.portrait.style.display = "none"; */
 let enemy = null;
 let player = null;
-/* player.equipmentArray = []; */
 
-/* startIntro(); */
-characterCreation();
+startIntro();
+/* characterCreation(); */
