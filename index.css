@@ -9,9 +9,10 @@ body {
 
 .header {
 	display: flex;
-	background-image: url(https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+	background-image: url(../ironhack-project1-ironArena/visual-assets/header-texture.jpeg);
 	height: 4vh;
 	justify-content: center;
+	font-weight: bold;
 	color: white;
 	align-items: center;
 	border-bottom: solid 5px black;
@@ -113,7 +114,7 @@ body {
 	justify-content: center;
 	bottom: 0;
 	height: 25vh;
-	background-image: url(https://img.freepik.com/premium-photo/grunge-old-vintage-retro-paper-texture-background_47840-948.jpg);
+	background-image: url(../ironhack-project1-ironArena/visual-assets/panel-texture.jpg);
 	color: white;
 	border: solid 5px black;
 	width: 100%;
@@ -127,7 +128,7 @@ body {
 	flex-direction: row;
 	justify-content: center;
 	height: 25vh;
-	background-image: url(https://img.freepik.com/premium-photo/grunge-old-vintage-retro-paper-texture-background_47840-948.jpg);
+	background-image: url(../ironhack-project1-ironArena/visual-assets/panel-texture.jpg);
 	color: white;
 	border: solid 5px black;
 	border-top: 0px;
@@ -330,12 +331,16 @@ body {
 		display: none;
 	} */
 
+	.enemy-panel .portrait-container {
+		display: none;
+	}
+
 	.player-panel .portrait-container {
 		display: none;
 	}
 
 	#character-table-body * {
-		font-size: 16px;
+		font-size: 14px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
