@@ -1,4 +1,4 @@
-# Iron Arena
+# Iron Arena - a gladiator role-playing game of guts and glory
 
 ![Iron Arena Screenshot](../ironhack-project1-ironArena/visual-assets/combat-ui-screenshot.png)
 
