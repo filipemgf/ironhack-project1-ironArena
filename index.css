@@ -78,6 +78,10 @@ body {
 	border: solid 2px #b83f1a;
 }
 
+.character-description {
+	padding-top: 10px;
+}
+
 .table-header {
 	text-align: center;
 }
@@ -133,14 +137,26 @@ body {
 	gap: 40px;
 }
 
-.inventory {
+.player-inventory {
 	background-color: #330c0c;
 	padding: 10px;
-	flex-basis: 350px;
+	flex-grow: 1;
 	height: 90%;
 	border: solid 2px black;
 	margin: 10px;
 	box-sizing: border-box;
+	text-align: center;
+}
+
+.enemy-inventory {
+	background-color: #330c0c;
+	padding: 10px;
+	flex-grow: 1;
+	height: 90%;
+	border: solid 2px black;
+	margin: 10px;
+	box-sizing: border-box;
+	text-align: center;
 }
 
 .portrait-img {
@@ -157,11 +173,12 @@ body {
 	box-sizing: border-box;
 	margin-left: 20px;
 }
+
 .stats-buttons-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	gap: 60px;
+	gap: 40px;
 	margin-right: 20px;
 	margin-left: 20px;
 	flex-grow: 1;
@@ -234,8 +251,10 @@ body {
 }
 
 #character-table-body * {
+	font-size: 20px;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .character-choice-button {
@@ -275,16 +294,33 @@ body {
 }
 
 #character-table tr {
+	display: flex;
 	gap: 50px;
 	margin: 10px;
+	align-items: center;
 }
 
 @media (max-width: 910px) {
-	.inventory {
+	/* .inventory {
+		display: none;
+	} */
+
+	.player-panel .portrait-container {
 		display: none;
 	}
 
-	.player-panel .portrait-container {
+	#character-table-body * {
+		font-size: 16px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.player.panel * {
+		font-size: 16px;
+	}
+
+	.panel-buttons-container {
 		display: none;
 	}
 }

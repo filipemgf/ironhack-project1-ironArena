@@ -18,9 +18,12 @@ const panelQueries = {
 			three: document.querySelector("#button3"),
 			four: document.querySelector("#button4"),
 		},
+		portrait: document.querySelector(".portrait-container"),
+		inventory: document.querySelector(".player-inventory .items-container"),
 	},
 	enemy: {
 		panel: document.querySelector(".enemy-panel"),
+		inventory: document.querySelector(".enemy-inventory .items-container"),
 	},
 };
 
@@ -115,11 +118,13 @@ class Combat {
 
 	start() {
 		panelQueries.enemy.panel.style.display = "flex";
+		panelQueries.player.portrait.style.display = "flex";
 		introQueries.container.style.display = "none";
 		characterCreatorQueries.container.style.display = "none";
 		console.log(fight);
 
 		updateEnemyStats();
+		updateEnemyInventory();
 
 		if (player.agility > enemy.agility) {
 			sendMessageToScreen(`You move faster than the enemy!`);
@@ -223,6 +228,7 @@ const swords = {
 		damage: 10,
 		armor: 0,
 		parry: 1,
+		skill: () => {}, //add the skill to the button thru  this
 	},
 };
 
@@ -302,15 +308,19 @@ introQueries.button.addEventListener("click", () => {
 
 characterCreatorQueries["rogue"].addEventListener("click", () => {
 	panelQueries.player.panel.style.display = "flex";
-	panelQueries.player.button.container.style.display = "none";
+	/* panelQueries.player.button.container.style.display = "none"; */
 	player = new Unit(
 		"Player Rogue",
 		[10, 15, 12],
 		[armor.leatherArmor, swords.bronzeSword, shields.ironBuckler]
 	);
 	updatePlayerStats();
+	updatePlayerInventory();
+
 	characterCreatorQueries.confirm.style.display = "flex";
+	panelQueries.player.portrait.style.display = "flex";
 	console.log(player);
+	console.log(player.equipmentArray);
 });
 
 characterCreatorQueries["hunter"].addEventListener("click", () => {
@@ -420,12 +430,40 @@ function updateEnemyStats() {
 	}
 }
 
+console.log(panelQueries.player.inventory);
+
+/* function updateInventory(unit) {
+	const equipmentArray = unit.equipmentArray;
+	equipmentArray.forEach((equipment) => {
+		panelQueries[unit].inventory.innerHTML += `\n ${equipment.name}`;
+	});
+} */
+
+function updatePlayerInventory() {
+	player.equipmentArray.forEach((equipment) => {
+		const equipmentName = document.createTextNode(equipment.name);
+		lineBreak = document.createElement(`br`);
+		panelQueries.player.inventory.appendChild(equipmentName);
+		panelQueries.player.inventory.appendChild(lineBreak);
+	});
+}
+
+function updateEnemyInventory() {
+	enemy.equipmentArray.forEach((equipment) => {
+		const equipmentName = document.createTextNode(equipment.name);
+		lineBreak = document.createElement(`br`);
+		panelQueries.enemy.inventory.appendChild(equipmentName);
+		panelQueries.enemy.inventory.appendChild(lineBreak);
+	});
+}
+
 function characterCreation() {
 	characterCreatorQueries.container.style.display = "flex";
 	combatQueries.turnTracker.enemy.style.display = "none";
 	combatQueries.turnTracker.player.style.display = "none";
 	panelQueries.enemy.panel.style.display = "none";
 	panelQueries.player.panel.style.display = "none";
+	panelQueries.player.portrait.style.display = "none";
 	introQueries.paragraph.one.style.display = "none";
 	introQueries.paragraph.two.style.display = "none";
 	introQueries.paragraph.three.style.display = "none";
@@ -452,9 +490,9 @@ function startIntro() {
 			introQueries.paragraph.three.style.display = "flex";
 			setTimeout(() => {
 				introQueries.button.style.display = "flex";
-			}, 5000);
-		}, 5000);
-	}, 5000);
+			}, 3000);
+		}, 3000);
+	}, 3000);
 }
 /* function updateStats(unit) {
 	for (let property in unitStatQueries) {
@@ -464,8 +502,10 @@ function startIntro() {
 
 // Testing
 
+/* panelQueries.player.portrait.style.display = "none"; */
 let enemy = null;
 let player = null;
+/* player.equipmentArray = []; */
 
-startIntro();
-/* characterCreation(); */
+/* startIntro(); */
+characterCreation();
